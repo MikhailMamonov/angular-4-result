@@ -25,19 +25,21 @@ import { TodosService } from './todos.service';
     AppRoutingModule,
     Ng2SearchPipeModule,
   ],
-
   declarations: [
     AppComponent,
     TodosComponent,
     AddComponent,
   ],
-
+  exports:[
+    AppRoutingModule
+  ],
   providers: [
     TodosService,
   ],
 
   bootstrap: [
     AppComponent,
+
   ],
 })
 export class AppModule { }

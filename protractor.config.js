@@ -18,6 +18,9 @@ var _ = require('lodash');
 exports.config = {
   directConnect: true,
 
+  seleniumAddress: 'http://localhost:4444/wd/hub',
+
+
   // Capabilities to be passed to the webdriver instance.
   capabilities: {
     'browserName': 'chrome'
@@ -27,7 +30,7 @@ exports.config = {
   framework: 'jasmine',
 
   // Spec patterns are relative to this config file
-  specs: ['**/*e2e-spec.js' ],
+  specs: ['spec.js' ],
 
 
   // For angular tests
