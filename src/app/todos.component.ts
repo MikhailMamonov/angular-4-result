@@ -21,7 +21,7 @@ import { Todo } from './todo';
   providers: [ TodosService ],
 })
 export class TodosComponent implements OnInit {
-  private todos: Observable<Todo[]>;
+  todos: Observable<Todo[]>;
   private remaining: Observable<number>;
   private searchQuery: string;
 
