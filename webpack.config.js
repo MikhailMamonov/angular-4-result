@@ -26,7 +26,7 @@ var config = {
     })
   ],
   externals: [nodeExternals()],
-  target: 'node',
+  target: 'web',
   module: {
     rules: [
       {
@@ -41,6 +41,10 @@ var config = {
     loaders: [
       {
         test: /\.tsx?$/,
+        loader: 'ng-annotate-loader',
+},
+      {
+        test: /\.tsx?$/,
         exclude: /node_modules/,
         loader: 'ts-loader?' + JSON.stringify({
           transpileOnly: true
@@ -53,6 +57,14 @@ var config = {
           'json-loader'
         ]
       },
+      {
+        test: /\.ts$/,
+        loaders: [
+          'awesome-typescript-loader',
+          'angular2-template-loader'
+        ]
+      },
+      { test: /\.scss$/, exclude: /node_modules/, loader: 'raw-loader!sass-loader' },
       { test: /\.js$/, exclude: /node_modules/, loaders:['ng-annotate','babel?presets=es2015'],exclude: /node_modules/},
       { test: /\.html$/,exclude: /node_modules/, loader: 'raw', exclude: /node_modules/},
       {test: /\.css$/,exclude: /node_modules/, loader: 'style!css',exclude: /node_modules/}

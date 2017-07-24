@@ -4,7 +4,6 @@ import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { LocalStorageService } from 'angular-2-local-storage';
-
 import { Todo } from './todo';
 
 @Injectable()

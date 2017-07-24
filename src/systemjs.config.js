@@ -66,6 +66,16 @@
           './lib/rng': './lib/rng-browser',
           './lib/sha1': './lib/sha1-browser'
         }
+      },
+      'node-uuid': {
+        main: 'index.js',
+        defaultExtension: 'js',
+        format: 'cjs',
+        map: {
+          'crypto': '@empty',
+          './lib/rng': './lib/rng-browser',
+          './lib/sha1': './lib/sha1-browser'
+        }
       }
     }
   });
