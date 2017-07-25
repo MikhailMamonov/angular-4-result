@@ -66,7 +66,6 @@ module.exports = function(config) {
       'node_modules/karma-typescript-angular2-transform/src/test/transform.spec.ts',
       'node_modules/angular-2-local-storage/dist/**/*.js',
      'node_modules/moment/**/*.js',
-      '**/*.spec.ts',
 
       // RxJs
       { pattern: 'node_modules/rxjs/**/*.js', included: false, watched: false },

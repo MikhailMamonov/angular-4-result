@@ -26,9 +26,8 @@
   ],
   "include": [
     "node_modules/ng2-search-filter/**/*",
-    "**/*"
-  ],
-  "exclude": [
+    "**/*"],
+    "exclude": [
     "test.ts",
     "**/*.spec.ts"
   ]
