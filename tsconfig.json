@@ -8,6 +8,7 @@
     "types": ["node"],
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "skipLibCheck": true,
     "lib": [ "es2015", "dom" ],
     "noImplicitAny": false,
     "suppressImplicitAnyIndexErrors": true
@@ -18,7 +19,8 @@
     "useTranspileModule": true
   },
   "include": [
-    "src/**/*"
+    "src/**/*",
+    path.resolve(__dirname, 'path/to/imported/file/dir'),
   ],
   "exclude": [
       "node_modules",
