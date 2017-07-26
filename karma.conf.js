@@ -1,26 +1,26 @@
-var webpack = require("webpack");
+// var webpack = require("webpack");
 module.exports = function(config) {
 
   var appBase    = 'src/';       // transpiled app JS and map files
   var appSrcBase = appBase;      // app source TS files
 
-  // Testing helpers (optional) are conventionally in a folder called `testing`
-  var testingBase    = '/'; // transpiled test JS and map files
-  var testingSrcBase = '/'; // test source TS files
-  var path = require('path');
-  var webpackConfig = require('./webpack3.config');
-  var entry = path.resolve(webpackConfig.context, webpackConfig.entry);
-  var preprocessors = {};
-  preprocessors[entry] = ['webpack'];
+  // // Testing helpers (optional) are conventionally in a folder called `testing`
+  // var testingBase    = '/'; // transpiled test JS and map files
+  // var testingSrcBase = '/'; // test source TS files
+  // var path = require('path');
+  // var webpackConfig = require('./webpack3.config');
+  // var entry = path.resolve(webpackConfig.context, webpackConfig.entry);
+  // var preprocessors = {};
+  // preprocessors[entry] = ['webpack'];
   var es2015 = require('babel-preset-es2017');
 
   config.set({
     basePath: '',
-    frameworks: ['jasmine','angular-cli'],
+    frameworks: ['jasmine','@angular/cli'],
 
     plugins: [
       'karma-babel-preprocessor',
-      require('karma-webpack'),
+      // require('karma-webpack'),
 
       'babelify',
       require('karma-jasmine'),
@@ -28,15 +28,10 @@ module.exports = function(config) {
       require('browserify'),
       require('karma-chrome-launcher'),
       require('karma-remap-istanbul'),
-      require('angular-cli/plugins/karma'),
-      require('karma-jasmine-html-reporter'),
+      require('@angular/cli/plugins/karma'),
+      require('karma-jasmine-html-reporter')
     ],
-    webpack: webpackConfig,
-    webpackMiddleware: {
-      noInfo:true
-    },
     client: {
-      builtPaths: [appBase, testingBase], // add more spec base paths as needed
       clearContext: false // leave Jasmine Spec Runner output visible in browser
     },
 
@@ -69,46 +64,22 @@ module.exports = function(config) {
       'node_modules/karma-typescript-angular2-transform/src/test/transform.spec.ts',
       'node_modules/angular-2-local-storage/dist/**/*.js',
      'node_modules/moment/**/*.js',
-      { pattern: './src/**/*spec.ts', watched: false },
       // RxJs
       { pattern: 'node_modules/rxjs/**/*.js', included: false, watched: false },
       { pattern: 'node_modules/rxjs/**/*.js.map', included: false, watched: false },
 
       // Paths loaded via module imports:
       // Angular itself
-      { pattern: 'node_modules/@angular/**/*.js', included: false, watched: false },
-      { pattern: 'node_modules/@angular/**/*.js.map', included: false, watched: false },
-
-      { pattern: appBase + '/systemjs.config.js', included: false, watched: false },
-      { pattern: appBase + '/systemjs.config.extras.js', included: false, watched: false },
-      'karma-test-shim.js', // optionally extend SystemJS mapping e.g., with barrels
+      // optionally extend SystemJS mapping e.g., with barrels
 
       // transpiled application & spec code paths loaded via module imports
-      { pattern: appBase + '**/*.js', included: false, watched: true },
-      { pattern: testingBase + '**/*.js', included: false, watched: true },
 
-
-      // Asset (HTML & CSS) paths loaded via Angular's component compiler
-      // (these paths need to be rewritten, see proxies section)
-      { pattern: appBase + '**/*.html', included: false, watched: true },
-      { pattern: appBase + '**/*.css', included: false, watched: true },
-
-      // Paths for debugging with source maps in dev tools
-      { pattern: appBase + '**/*.ts', included: false, watched: false },
-      { pattern: appBase + '**/*.js.map', included: false, watched: false },
-      { pattern: testingSrcBase + '**/*.ts', included: false, watched: false },
-      { pattern: testingBase + '**/*.js.map', included: false, watched: false}
     ],
 
-    // Proxied base paths for loading assets
-    proxies: {
-      // required for modules fetched by SystemJS
-      '/base/src/node_modules/': '/base/node_modules/'
-    },
     preprocessors: {
-      './src/**/*spec.ts': ['angular-cli'],
-      './src/**/*.js': ['webpack'],
-      './src/**/*.ts': ['webpack']
+      './src/**/*spec.ts': ['@angular/cli']
+      // './src/**/*.js': ['webpack'],
+      // './src/**/*.ts': ['webpack']
       // 'node-modules/moment*/**/*.js': ['webpack'],
       // 'node-modules/babel*/**/*.js': ['webpack'],
       // 'node-modules/karma*/**/*.js': ['webpack'],
@@ -118,6 +89,9 @@ module.exports = function(config) {
       // 'node-modules/node-uuid/**/*.js': ['webpack'],
     },
     exclude: [],
+    mime: {
+      'text/x-typescript': ['ts','tsx']
+    },
     reporters: ['progress', 'kjhtml'],
     angularCli: {
       config: './angular-cli.json',
@@ -130,7 +104,9 @@ module.exports = function(config) {
         ]],
       plugin: ['tsify']
         },
-
+    reporters: config.angularCli && config.angularCli.codeCoverage
+      ? ['progress', 'coverage-istanbul']
+      : ['progress', 'kjhtml'],
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
