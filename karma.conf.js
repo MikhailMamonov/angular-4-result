@@ -8,7 +8,7 @@ module.exports = function(config) {
   var testingBase    = '/'; // transpiled test JS and map files
   var testingSrcBase = '/'; // test source TS files
   var path = require('path');
-  var webpackConfig = require('./webpackhbjjh.config');
+  var webpackConfig = require('./webpack3.config');
   var entry = path.resolve(webpackConfig.context, webpackConfig.entry);
   var preprocessors = {};
   preprocessors[entry] = ['webpack'];
@@ -16,16 +16,19 @@ module.exports = function(config) {
 
   config.set({
     basePath: '',
-    frameworks: ['jasmine'],
+    frameworks: ['jasmine','angular-cli'],
 
     plugins: [
       'karma-babel-preprocessor',
       require('karma-webpack'),
+
       'babelify',
       require('karma-jasmine'),
       require('babelify'),
       require('browserify'),
       require('karma-chrome-launcher'),
+      require('karma-remap-istanbul'),
+      require('angular-cli/plugins/karma'),
       require('karma-jasmine-html-reporter'),
     ],
     webpack: webpackConfig,
@@ -66,7 +69,7 @@ module.exports = function(config) {
       'node_modules/karma-typescript-angular2-transform/src/test/transform.spec.ts',
       'node_modules/angular-2-local-storage/dist/**/*.js',
      'node_modules/moment/**/*.js',
-
+      { pattern: './src/**/*spec.ts', watched: false },
       // RxJs
       { pattern: 'node_modules/rxjs/**/*.js', included: false, watched: false },
       { pattern: 'node_modules/rxjs/**/*.js.map', included: false, watched: false },
@@ -103,10 +106,23 @@ module.exports = function(config) {
       '/base/src/node_modules/': '/base/node_modules/'
     },
     preprocessors: {
-      '**/*.spec.ts': ['webpack']
+      './src/**/*spec.ts': ['angular-cli'],
+      './src/**/*.js': ['webpack'],
+      './src/**/*.ts': ['webpack']
+      // 'node-modules/moment*/**/*.js': ['webpack'],
+      // 'node-modules/babel*/**/*.js': ['webpack'],
+      // 'node-modules/karma*/**/*.js': ['webpack'],
+      // 'node-modules/rxjs/**/*.js': ['webpack'],
+      // 'node-modules/ts*/**/*.js': ['webpack'],
+      // 'node-modules/uuid*/**/*.js': ['webpack'],
+      // 'node-modules/node-uuid/**/*.js': ['webpack'],
     },
     exclude: [],
     reporters: ['progress', 'kjhtml'],
+    angularCli: {
+      config: './angular-cli.json',
+      environment: 'dev'
+    },
     browserify: {
         debug: true,
         extensions: ['.js', '.json', '.ts'],
@@ -114,6 +130,7 @@ module.exports = function(config) {
         ]],
       plugin: ['tsify']
         },
+
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,

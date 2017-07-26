@@ -63,6 +63,7 @@ module.exports = {
       ".ts",
       ".js"
     ],
+
     "modules": [
       "./node_modules",
       "./node_modules"
@@ -84,9 +85,7 @@ module.exports = {
     ]
   },
   "output": {
-    "path": path.join(process.cwd(), "dist"),
-    "filename": "[name].bundle.js",
-    "chunkFilename": "[id].chunk.js"
+    "filename": "[name].js"
   },
   "module": {
     "rules": [
@@ -115,9 +114,6 @@ module.exports = {
         "loader": "url-loader?name=[name].[hash:20].[ext]&limit=10000"
       },
       {
-        "exclude": [
-          path.join(process.cwd(), "src\\styles.css")
-        ],
         "test": /\.css$/,
         "use": [
           "exports-loader?module.exports.toString()",
@@ -350,7 +346,12 @@ module.exports = {
     new NoEmitOnErrorsPlugin(),
     new GlobCopyWebpackPlugin({
       "patterns": [
-        "assets"
+        "a",
+        "s",
+        "s",
+        "e",
+        "t",
+        "s"
       ],
       "globOptions": {
         "cwd": path.join(process.cwd(), "src"),

@@ -20,11 +20,12 @@ import {defineLocale} from "moment";
     });
 
     fixture = TestBed.createComponent(TodosComponent);
-
+    console.log(fixture);
     comp = fixture.componentInstance; // BannerComponent test instance
   });
 
   it('should display original title', () => {
+    console.log(fixture);
     fixture.detectChanges();
     expect(comp.todos).toContain(undefined);
   });
