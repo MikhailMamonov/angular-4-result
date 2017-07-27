@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, inject, TestBed} from '@angular/core/testing';
 import { By }              from '@angular/platform-browser';
 import { DebugElement }    from '@angular/core';
 
@@ -6,28 +6,36 @@ import { Todo } from './todo';
 import {TodosComponent} from './todos.component';
 import {} from 'jasmine';
 import {defineLocale} from "moment";
+import {TodosService} from "./todos.service";
+import {Router} from "@angular/router";
+
+// class MockAuthService {
+//   authenticated = false;
+//
+//   isAuthenticated() {
+//     return this.authenticated;
+//   }
+// }
+
+
 
 
   describe('TodosComponent (inline template)', () => {
-  let comp:    TodosComponent;
-  let fixture: ComponentFixture<TodosComponent>;
-  let de:      DebugElement;
-  let el:      HTMLElement;
+    let todos: TodosComponent ;
+    let service: TodosService ;
+    let router: Router;
 
+    beforeEach(inject([Router, TodosService], (_router: Router, _service: TodosService) => {
+      this.service = _service;
+      this.router = _router;
+    }));
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [ TodosComponent ], // declare the test component
-    });
-
-    fixture = TestBed.createComponent(TodosComponent);
-    console.log(fixture);
-    comp = fixture.componentInstance; // BannerComponent test instance
+    this.todos = new TodosComponent(this.router, this.service);
   });
 
   it('should display original title', () => {
-    console.log(fixture);
-    fixture.detectChanges();
-    expect(comp.todos).toContain(undefined);
+    console.log(this.todos);
+    expect(this.todos).toEqual(undefined));
   });
 });
 

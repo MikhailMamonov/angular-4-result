@@ -61,9 +61,6 @@ module.exports = function(config) {
       'node_modules/zone.js/dist/fake-async-test.js',
       'node_modules/zone.js/dist/fake-async-test.js',
       'test-main.js',
-      'node_modules/karma-typescript-angular2-transform/src/test/transform.spec.ts',
-      'node_modules/angular-2-local-storage/dist/**/*.js',
-     'node_modules/moment/**/*.js',
       // RxJs
       { pattern: 'node_modules/rxjs/**/*.js', included: false, watched: false },
       { pattern: 'node_modules/rxjs/**/*.js.map', included: false, watched: false },
