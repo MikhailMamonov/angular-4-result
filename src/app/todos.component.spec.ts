@@ -1,5 +1,5 @@
 import {ComponentFixture, inject, TestBed} from '@angular/core/testing';
-import { By }              from '@angular/platform-browser';
+import {BrowserModule, By}              from '@angular/platform-browser';
 import { DebugElement }    from '@angular/core';
 
 import { Todo } from './todo';
@@ -9,6 +9,15 @@ import {defineLocale} from "moment";
 import {TodosService} from "./todos.service";
 import {Router} from "@angular/router";
 import {BrowserDynamicTestingModule, platformBrowserDynamicTesting} from "@angular/platform-browser-dynamic/testing";
+import {AppComponent} from "./app.component";
+import {AppModule} from "./app.module";
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {LocalStorageModule} from "angular-2-local-storage";
+import {AppRoutingModule} from "./app-routing.module";
+import {Ng2SearchPipeModule} from "ng2-search-filter";
+import {AddComponent} from "./add.component";
+import {APP_BASE_HREF} from '@angular/common';
+import {BehaviorSubject} from "rxjs/BehaviorSubject";
 
 // class MockAuthService {
 //   authenticated = false;
@@ -17,28 +26,34 @@ import {BrowserDynamicTestingModule, platformBrowserDynamicTesting} from "@angul
 //     return this.authenticated;
 //   }
 // }
-
-TestBed.initTestEnvironment(
-  BrowserDynamicTestingModule, platformBrowserDynamicTesting());
-
-
   describe('TodosComponent (inline template)', () => {
-    let todos: TodosService ;
-    let service: TodosService ;
-    let router: Router;
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [TodosService],
-      providers:[TodosService]
+    TestBed.initTestEnvironment( BrowserDynamicTestingModule, platformBrowserDynamicTesting() ).configureTestingModule({
+      imports: [ BrowserModule,
+        FormsModule,
+        LocalStorageModule.withConfig({
+          prefix: 'TodoList',
+          storageType: 'localStorage',
+        }),
+        AppRoutingModule,
+        Ng2SearchPipeModule,],
+      declarations: [TodosComponent, AddComponent],
+      providers: [ {provide: TodosService } , {provide: APP_BASE_HREF, useValue : '/' }]
     });
-    TestBed.compileComponents();
     console.log("OK");
+    console.log("OK");
+    this.fixture = TestBed.createComponent(TodosComponent);
+    this.comp = this.fixture.componentInstance; // BannerComponent test instance
+    this.service = TestBed.get(TodosService);
   });
 
   it('should display original title',() => {
-    let fixture = TestBed.createComponent(TodosService);
-    console.log(fixture);
-    fixture.detectChanges();
+    console.log("Ya tut ");
+    console.log(this.comp);
+    spyOn(this.service, '_flushTodos').and.returnValue(void);
+    this.fixture.detectChanges();
+    expect(comp.).toBeFalsy();
+    expect(authService.isAuthenticated).toHaveBeenCalled();
     expect(true).toEqual(true);
   });
 });
